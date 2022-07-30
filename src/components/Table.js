@@ -9,9 +9,8 @@ export default class table extends Component {
     this.state = {
       planetsArray:[],
       loading: false,
-      notLoaded: "LOADING"
+      planetsName: []
     }
-
   }
 
   componentDidMount(){
@@ -22,7 +21,7 @@ export default class table extends Component {
    try {
     const response = await fetch("https://swapi.dev/api/planets/")
     const planets = await response.json();
-    this.setState({ planetsArray: planets.results, loading:true});
+    this.setState({ planetsArray: planets.results.sort((a,b) => a.name > b.name), loading:true});
    } catch (error) {
     console.error(error);
    }
@@ -31,14 +30,17 @@ export default class table extends Component {
   getSurfaceArea = (diameter, surfaceWater) => {
     let surfaceArea = 4 * Math.PI * (diameter/2) ** 2
     let surfaceAreaWater = parseFloat(surfaceWater) / 100
-   return  surfaceWater !== 'unknown' ? Math.round(surfaceArea * surfaceAreaWater) : "unknown"
+    console.log(typeof surfaceArea)
+    return surfaceWater !== 'unknown' ? this.numberSpacing(Math.round(surfaceArea * surfaceAreaWater)) : "unknown"
+    
   }
 
-  
-  ascOrder = (name) => {
-    let ascName = name.sort()
-    return ascName
+  numberSpacing = (number) => {
+    let betterNumber = number.toString()
+    return betterNumber.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+    
   }
+
 
   render() {
     return (
@@ -63,26 +65,27 @@ export default class table extends Component {
               </th>
             </tr>
           </thead>
-          {this.state.loading === false ? <Loading /> : this.state.planetsArray.map(planet => {
+          {this.state.loading === false ? <Loading /> : this.state.planetsArray.map((planet, id) => {
             return (
-              <tbody>
+              <tbody key={id}>
                 <tr>
                   <th>
+                    <a href={planet.url} >
                     {planet.name}
+                    </a>
                   </th>
-                  <th>
+                  <td>
                     {planet.climate}
-                  </th>
-                  <th>
-                    {planet.population}
-                  </th>
-                  <th>
+                  </td>
+                  <td>
+                    {this.numberSpacing(planet.population)}
+                  </td>
+                  <td>
                     {planet.terrain}
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                   {this.getSurfaceArea(planet.diameter, planet.surface_water)}
-                  </th>
-                    
+                  </td>
                 </tr>
               </tbody>
             )
