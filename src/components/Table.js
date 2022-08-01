@@ -9,7 +9,6 @@ export default class table extends Component {
     this.state = {
       planetsArray:[],
       loading: false,
-      planetsName: []
     }
   }
 
@@ -29,9 +28,10 @@ export default class table extends Component {
 
   getSurfaceArea = (diameter, surfaceWater) => {
     let surfaceArea = 4 * Math.PI * (diameter/2) ** 2
-    let surfaceAreaWater = parseFloat(surfaceWater) / 100
-    console.log(typeof surfaceArea)
-    return surfaceWater !== 'unknown' ? this.numberSpacing(Math.round(surfaceArea * surfaceAreaWater)) : "unknown"
+    let surfaceAreaWaterPercentage = parseFloat(surfaceWater) / 100
+    let waterSurfaceArea = surfaceArea * surfaceAreaWaterPercentage
+    console.log( "FINAL",waterSurfaceArea);
+    return surfaceWater !== 'unknown' ? this.numberSpacing(Math.round(surfaceArea - waterSurfaceArea)) : "?"
     
   }
 
@@ -44,7 +44,7 @@ export default class table extends Component {
 
   render() {
     return (
-      <div>
+      <div className='table-container'>
         <Table bordered>
           <thead>
             <tr>
