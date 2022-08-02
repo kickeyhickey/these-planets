@@ -30,7 +30,6 @@ export default class table extends Component {
     let surfaceArea = 4 * Math.PI * (diameter/2) ** 2
     let surfaceAreaWaterPercentage = parseFloat(surfaceWater) / 100
     let waterSurfaceArea = surfaceArea * surfaceAreaWaterPercentage
-    console.log( "FINAL",waterSurfaceArea);
     return surfaceWater !== 'unknown' ? this.numberSpacing(Math.round(surfaceArea - waterSurfaceArea)) : "?"
     
   }

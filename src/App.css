@@ -11,19 +11,10 @@ body {
 
 .table-container {
   min-height : 100vh;
+  min-width : 150vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.table div {
-  width: 100px;
-  height: 100px;
-}
 
-.table {
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
