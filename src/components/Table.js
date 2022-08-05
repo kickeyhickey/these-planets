@@ -12,6 +12,7 @@ export default class table extends Component {
     }
   }
 
+  // happening on page load
   componentDidMount(){
     this.readPlanets()
   }
@@ -31,13 +32,11 @@ export default class table extends Component {
     let surfaceAreaWaterPercentage = parseFloat(surfaceWater) / 100
     let waterSurfaceArea = surfaceArea * surfaceAreaWaterPercentage
     return surfaceWater !== 'unknown' ? this.numberSpacing(Math.round(surfaceArea - waterSurfaceArea)) : "?"
-    
   }
 
   numberSpacing = (number) => {
     let betterNumber = number.toString()
     return betterNumber.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
-    
   }
 
 

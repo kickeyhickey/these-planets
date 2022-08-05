@@ -5,7 +5,6 @@ import './App.css'
 export default class App extends Component {
   render() {
     return (
-      
       <div className='table-container'>
         <div className='table'>
          <Table />
